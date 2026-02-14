@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Be My Valentine 💖</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+            overflow: hidden;
+        }
+
+        h1 {
+            margin-top: 100px;
+            color: #d63384;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            margin: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        #yesBtn {
+            background-color: #28a745;
+            color: white;
+            left: 45%;
+            top: 50%;
+        }
+
+        #noBtn {
+            background-color: #dc3545;
+            color: white;
+            left: 55%;
+            top: 50%;
+        }
+
+        /* Love screen */
+        #loveScreen {
+            display: none;
+            position: relative;
+            height: 100vh;
+            width: 100%;
+        }
+
+        #loveText {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Falling hearts */
+        .heart {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="question">Hey babe would you be my valentine's? 💌</h1>
+
+    <button id="yesBtn" class="btn">Yes 💖</button>
+    <button id="noBtn" class="btn">No 😢</button>
+
+    <div id="loveScreen">
+        <div id="loveText">Love You ❤️</div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+        const loveScreen = document.getElementById("loveScreen");
+        const question = document.getElementById("question");
+
+        // Make No button run away
+        noBtn.addEventListener("mouseover", function() {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            noBtn.style.left = randomX + "px";
+            noBtn.style.top = randomY + "px";
+        });
+
+        // When Yes is clicked
+        yesBtn.addEventListener("click", function() {
+            question.style.display = "none";
+            yesBtn.style.display = "none";
+            noBtn.style.display = "none";
+            loveScreen.style.display = "block";
+
+            startHearts();
+        });
+
+        // Create falling hearts
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "❤️";
+
+                heart.style.left = Math.random() * window.innerWidth + "px";
+                heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+                heart.style.fontSize = (20 + Math.random() * 30) + "px";
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 300);
+        }
+    </script>
+
+</body>
+</html>
